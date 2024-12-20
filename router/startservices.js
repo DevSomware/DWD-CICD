@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
   res.send('Hello World from devsomeware cicd');
 });
 
-router.post('/deploy', async (req, res) => {
+router.post('/', async (req, res) => {
   let header = req.headers['api-key'];
 
   let foldername = req.body.foldername;
@@ -27,20 +27,8 @@ router.post('/deploy', async (req, res) => {
 
   // Run the command
   try {
-    streamOutput('Deploying the project...');
+    streamOutput('Starting the app set all conf..');
     const options = { cwd: `${foldername}`, shell: true }; // Set working directory
-
-    streamOutput('Running git pull...');
-    await runCommand('git', ['pull'], options, streamOutput);
-
-    streamOutput('Installing dependencies...');
-    await runCommand('npm', ['install'], options, streamOutput);
-
-    streamOutput('Building the project...');
-    await runCommand('npm', ['run', 'build'], options, streamOutput);
-
-    streamOutput('Stopping PM2 app...');
-    await runCommand('pm2', ['stop', `${servicename}`], options, streamOutput);
 
     streamOutput('Starting PM2 app...');
     await runCommand(
@@ -54,7 +42,7 @@ router.post('/deploy', async (req, res) => {
     await runCommand('pm2', ['list'], options, streamOutput);
 
     streamOutput('All commands executed successfully.');
-    streamOutput('Deployment completed successfully.');
+    streamOutput('App started successfully.');
     streamOutput('Services are up and running.');
 
     res.end(); // End the response after all commands are processed
