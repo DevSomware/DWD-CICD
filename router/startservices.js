@@ -11,6 +11,8 @@ router.post('/', async (req, res) => {
 
   let foldername = req.body.foldername;
   let servicename = req.body.servicename;  // Fixed typo here (servicesname -> servicename)
+  console.log(foldername);
+  console.log(servicename);
 
   console.log(header);
   if (header !== process.env.API_KEY) {
