@@ -16,9 +16,9 @@ router.get('/', async(req, res) => {
         const options = {  shell: true }; // Set working directory
     
         streamOutput('Running docker ps command...');
-        await runCommand('docker', ['ps'], options, streamOutput);
+        await runCommand('sudo docker', ['ps'], options, streamOutput);
         streamOutput('listing docker images command...');
-        await runCommand('docker', ['images'], options, streamOutput);
+        await runCommand('sudo docker', ['images'], options, streamOutput);
         streamOutput('Operation successfull.');
         res.end();
     }
