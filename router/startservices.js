@@ -1,16 +1,8 @@
-import express from 'express';
-import { spawn } from 'child_process';
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.send('Hello World from devsomeware cicd');
-});
-
 router.post('/', async (req, res) => {
   let header = req.headers['api-key'];
 
   let foldername = req.body.foldername;
-  let servicename = req.body.servicename;  // Fixed typo here (servicesname -> servicename)
+  let servicename = req.body.servicename;
   console.log(foldername);
   console.log(servicename);
 
@@ -21,20 +13,17 @@ router.post('/', async (req, res) => {
 
   res.setHeader('Content-Type', 'text/plain');
 
-  // Function to stream output to the user
   const streamOutput = (message) => {
-    console.log(message);  // Logs the output on the server console
+    console.log(message); // Logs the output on the server console
     res.write(`${message}\n`); // Streams output to the user
   };
 
-  // Run the command
   try {
     streamOutput('Starting the app set all conf..');
-    const options = { shell: true }; // Set working directory
-    streamOutput('Changing directory...');
-    await runCommand('cd', [foldername], {}, streamOutput);
+
+    const options = { cwd: foldername, shell: true }; // Set the working directory for the commands
     streamOutput('Listing all contents...');
-    await runCommand('ls', [], {}, streamOutput);
+    await runCommand('ls', [], options, streamOutput);
     streamOutput('Starting PM2 app...');
     await runCommand(
       'pm2',
@@ -44,7 +33,7 @@ router.post('/', async (req, res) => {
     );
 
     streamOutput('Listing all PM2 services...');
-    await runCommand('pm2', ['list'], {}, streamOutput);
+    await runCommand('pm2', ['list'], options, streamOutput);
 
     streamOutput('All commands executed successfully.');
     streamOutput('App started successfully.');
@@ -57,8 +46,6 @@ router.post('/', async (req, res) => {
     res.status(500).end(); // End the response in case of an error
   }
 });
-
-export default router;
 
 // Helper function to run commands
 function runCommand(command, args, options, onDataCallback) {
