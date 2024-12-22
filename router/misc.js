@@ -16,7 +16,7 @@ router.get('/', async(req, res) => {
         const options = {  shell: true }; // Set working directory
     
         streamOutput('Running uptime command...');
-        await runCommand('uptime', options, streamOutput);
+        await runCommand('uptime', [],options, streamOutput);
         streamOutput('Running uptime -s commands...');
         await runCommand('uptime', ['-s'], options, streamOutput);
         streamOutput('Running uptime -p commands...');
