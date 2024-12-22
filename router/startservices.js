@@ -1,3 +1,11 @@
+import express from 'express';
+import { spawn } from 'child_process';
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.send('Hello World from devsomeware cicd');
+});
+
 router.post('/', async (req, res) => {
   let header = req.headers['api-key'];
 
@@ -46,6 +54,8 @@ router.post('/', async (req, res) => {
     res.status(500).end(); // End the response in case of an error
   }
 });
+
+export default router;
 
 // Helper function to run commands
 function runCommand(command, args, options, onDataCallback) {
