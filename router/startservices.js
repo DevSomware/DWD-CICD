@@ -31,7 +31,8 @@ router.post('/', async (req, res) => {
   try {
     streamOutput('Starting the app set all conf..');
     const options = { cwd: foldername, shell: true }; // Set working directory
-
+    streamOutput('Listing all PM2 services...');
+    await runCommand('ls', [], {}, streamOutput);
     streamOutput('Starting PM2 app...');
     await runCommand(
       'pm2',
