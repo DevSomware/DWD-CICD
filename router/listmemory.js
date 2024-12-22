@@ -18,7 +18,7 @@ router.get('/', async(req, res) => {
         streamOutput('Running memory utilization commands...');
         await runCommand('free', ['-h'], options, streamOutput);
         streamOutput('Running disk space utilization commands...');
-        await runCommand('disk', ['-f'], options, streamOutput);
+        await runCommand('df', ['-f'], options, streamOutput);
         streamOutput('Operation successfull.');
         res.end();
     }
