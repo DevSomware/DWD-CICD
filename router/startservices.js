@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
     streamOutput('Starting PM2 app...');
     await runCommand(
       'pm2',
-      ['start', 'npm', '--', 'run', 'start', '--name', servicename],
+      ['start', '"npm run start"', '--name', servicename],
       options,
       streamOutput
     );
