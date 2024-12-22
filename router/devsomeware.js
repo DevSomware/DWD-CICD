@@ -40,17 +40,17 @@ router.post('/deploy', async (req, res) => {
     await runCommand('npm', ['run', 'build'], options, streamOutput);
 
     streamOutput('Stopping PM2 app...');
-    await runCommand('pm2', ['stop', `${servicename}`], options, streamOutput);
+    await runCommand('pm2', ['stop', servicename], options, streamOutput);
 
     streamOutput('Starting PM2 app...');
     await runCommand(
       'pm2',
-      ['start', 'npm run start', '--name', `${servicename}`],
+      ['start', '"npm run start"', '--name', servicename],
       options,
       streamOutput
     );
 
-    streamOutput('Listing all services...');
+    streamOutput('Listing all PM2 services...');
     await runCommand('pm2', ['list'], options, streamOutput);
 
     streamOutput('All commands executed successfully.');
