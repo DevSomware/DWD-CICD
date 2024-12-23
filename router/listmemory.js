@@ -6,7 +6,7 @@ router.get('/', async(req, res) => {
     if (header !== process.env.API_KEY) {
         return res.status(403).send('Unauthorized access, invalid API key provided');
     }
-    if(!header){
+    if(header==undefined){
       return res.status(403).send('Unauthorized access, invalid API key provided');
     }
     res.setHeader('Content-Type', 'text/plain');
