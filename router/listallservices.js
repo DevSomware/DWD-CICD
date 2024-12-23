@@ -3,7 +3,7 @@ import { spawn } from 'child_process';
 const router = express.Router();
 router.get('/', async(req, res) => {
     let header = req.headers['api-key'];
-    if (header !== process.env.API_KEY) {
+    if (header != process.env.API_KEY) {
         return res.status(403).send('Unauthorized access, invalid API key provided');
     }
     if(header==undefined){

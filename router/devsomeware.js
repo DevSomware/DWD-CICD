@@ -13,7 +13,7 @@ router.post('/deploy', async (req, res) => {
   let servicename = req.body.servicename;  // Fixed typo here (servicesname -> servicename)
 
   console.log(header);
-  if (header !== process.env.API_KEY) {
+  if (header != process.env.API_KEY) {
     return res.status(403).send('Unauthorized access, invalid API key provided');
   }
   if(header==undefined){
