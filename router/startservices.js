@@ -8,7 +8,9 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   let header = req.headers['api-key'];
-
+  if(!header){
+    return res.status(403).send('Unauthorized access, invalid API key provided');
+  }
   let foldername = req.body.foldername;
   let servicename = req.body.servicename;
   console.log(foldername);
