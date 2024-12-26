@@ -10,6 +10,7 @@ import listdocker from './router/listdocker.js';
 import listnginxconf from './router/listnginxconf.js';
 import misc from './router/misc.js';
 import logs from './router/logs.js';
+import flushlogs from './router/flushlogs.js';
 app.use(express.json());
 app.use(cors());
 app.use('/services',devsomeware);
@@ -20,6 +21,7 @@ app.use('/docker',listdocker);
 app.use('/nginx',listnginxconf);
 app.use('/misc',misc);
 app.use('/logs',logs);
+app.use('/flushlogs',flushlogs);
 //rate limiting because it is production api
 
 
